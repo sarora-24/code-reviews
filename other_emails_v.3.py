@@ -59,6 +59,7 @@ def initialize_tables():
                 CAST(NULL AS STRING) AS ShippingID,
                 CAST(NULL AS STRING) AS BillingID
             FROM `marketing-data-lakehouse-01.EDWOlap.ClarkitbizDimUser` du
+            -- This contains user info
             LEFT JOIN `marketing-data-production.Sales_Data.Invoices_And_Orders_Sales_Data` iosd
                 ON du.Email = iosd.UserEmail
             WHERE iosd.UserEmail IS NULL
@@ -83,7 +84,7 @@ def initialize_tables():
             ue.ShippingID,
             CURRENT_DATE() as Date
         FROM user_emails ue
-        INNER JOIN `cdp-dev-342319.Ashish_Tables.all_users_with_guid` ug
+        JOIN `cdp-dev-342319.Ashish_Tables.all_users_with_guid` ug
         ON ue.UserEmail = ug.UserEmail
     """
 
